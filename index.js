@@ -9,10 +9,14 @@ const app = express();
 const server = http.createServer(app);
 const io = socketio(server);
 
-const port = 3000 || process.env.PORT;
+const port = process.env.PORT || 3000;
 const botName = 'ChatRoom bot';
 
 app.use(express.static(path.join(__dirname, 'public')));
+
+app.use((req, res, next) => {
+    res.sendFile(path.join(__dirname, 'public', 'index.html'));
+});
 
 io.on('connection', socket => {
     socket.on('joinRoom', ({ username, room }) => {
