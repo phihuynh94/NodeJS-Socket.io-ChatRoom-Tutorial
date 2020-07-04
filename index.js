@@ -14,10 +14,6 @@ const botName = 'ChatRoom bot';
 
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use((req, res, next) => {
-    res.sendFile(path.join(__dirname, 'public', 'index.html'));
-});
-
 io.on('connection', socket => {
     socket.on('joinRoom', ({ username, room }) => {
         const user = userJoin(socket.id, username, room);
